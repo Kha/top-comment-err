@@ -1,0 +1,6 @@
+[Core]
+Name = top-comment-err
+Module = top-comment-err
+ 
+[Documentation]
+Description = Respond to posted links with the respictive top reddit comment
