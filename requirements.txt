@@ -1,2 +1,2 @@
 praw
-beatifulsoup4
+beautifulsoup4
