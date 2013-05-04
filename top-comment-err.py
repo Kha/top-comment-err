@@ -13,10 +13,9 @@ def extractlinks(html):
 
 def get_top_comment(url):
 	submissions = r.get_info(url)
-	if submissions:
-		comments = submissions[0].comments # sorted by score, apparently
-		if comments:
-			return comments[0].body # dito
+	for s in sorted(submissions, key=lambda s: s.score, reverse=True):
+		if s.comments:
+			return s.comments[0].body # sorted by score, apparently
 	return None
 
 class TopCommentErr(BotPlugin):
