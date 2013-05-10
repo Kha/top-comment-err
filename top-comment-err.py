@@ -15,7 +15,7 @@ def get_top_comment(url):
 	submissions = r.get_info(url)
 	for s in sorted(submissions, key=lambda s: s.score, reverse=True):
 		if s.comments:
-			return s.comments[0].body # sorted by score, apparently
+			return max(s.comments, key=lambda c: getattr(c, 'score', -1)).body
 	return None
 
 class TopCommentErr(BotPlugin):
