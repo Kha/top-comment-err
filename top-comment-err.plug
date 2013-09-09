@@ -4,3 +4,6 @@ Module = top-comment-err
  
 [Documentation]
 Description = Respond to posted links with the respictive top reddit comment
+
+[Python]
+Version=2+
