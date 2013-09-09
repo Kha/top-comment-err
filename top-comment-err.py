@@ -11,13 +11,16 @@ def extractlinks(html):
 	soup = bs4.BeautifulSoup(html)
 	return [a['href'] for a in soup.findAll('a')]
 
+def unescape_html(encoded):
+	return bs4.BeautifulSoup(encoded).prettify(formatter=None)
+
 def get_top_comment(url):
 	submissions = r.get_info(url)
 	for s in sorted(submissions, key=lambda s: s.score, reverse=True):
 		if s.comments:
 			max_comment = max(s.comments, key=lambda c: getattr(c, 'score', -1))
 			if max_comment.score > 0:
-				return max_comment.body
+				return unescape_html(max_comment.body_html)
 	return None
 
 class TopCommentErr(BotPlugin):
