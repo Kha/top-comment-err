@@ -19,7 +19,7 @@ def get_top_comment(url):
 	for s in sorted(submissions, key=lambda s: s.score, reverse=True):
 		if s.comments:
 			max_comment = max(s.comments, key=lambda c: getattr(c, 'score', -1))
-			if max_comment.score > 0:
+			if max_comment.score > 10:
 				return unescape_html(max_comment.body_html)
 	return None
 
