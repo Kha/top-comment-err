@@ -14,13 +14,22 @@ def extractlinks(html):
 def unescape_html(encoded):
 	return bs4.BeautifulSoup(encoded).prettify(formatter=None)
 
+MAX_LEN = 500
+
 def get_top_comment(url):
 	submissions = r.get_info(url)
 	for s in sorted(submissions, key=lambda s: s.score, reverse=True):
 		if s.comments:
 			max_comment = max(s.comments, key=lambda c: getattr(c, 'score', -1))
 			if max_comment.score > 10:
-				return unescape_html(max_comment.body_html)
+				body = unescape_html(max_comment.body_html)
+				if len(body) > MAX_LEN:
+					soup = bs4.BeautifulSoup(body[:MAX_LEN])
+					soup.div.append(bs4.BeautifulSoup('<p><a href="{0}">...</a></p>'.format(max_comment.permalink)))
+					body = str(soup)
+				import pdb; pdb.set_trace()
+				return body
+
 	return None
 
 class TopCommentErr(BotPlugin):
