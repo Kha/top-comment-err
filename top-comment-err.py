@@ -27,7 +27,6 @@ def get_top_comment(url):
 					soup = bs4.BeautifulSoup(body[:MAX_LEN])
 					soup.div.append(bs4.BeautifulSoup('<p><a href="{0}">...</a></p>'.format(max_comment.permalink)))
 					body = str(soup)
-				import pdb; pdb.set_trace()
 				return body
 
 	return None
