@@ -58,7 +58,7 @@ class TopCommentErr(BotPlugin):
 
 	@botcmd
 	def bored(self, mess, args):
-		submissions = [s for s in r.get_subreddit('AskReddit').get_top(params={'t': 'week'}) if s.score > 1000 and 'NSFW' not in s.title]
+		submissions = [s for s in r.get_subreddit('AskReddit').get_top(params={'t': 'week'}) if s.num_comments > 5000 and not s.over_18]
 		if submissions:
 			s = random.choice(submissions)
 			comments = [c for c in s.comments if getattr(c, 'score', -1) > 300]
